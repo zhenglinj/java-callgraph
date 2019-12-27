@@ -15,6 +15,7 @@ package gr.gousiosg.javacg.stat;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -59,7 +60,7 @@ public class DynamicCallManager {
             .compile("invokedynamic\t(\\d+):\\S+ \\S+ \\(\\d+\\)");
     private static final int CALL_HANDLE_INDEX_ARGUMENT = 1;
 
-    private final Map<String, String> dynamicCallers = new HashMap<>();
+    private final Map<String, String> dynamicCallers = new TreeMap<>();
 
     /**
      * Retrieve dynamic call relationships based on the code of the provided

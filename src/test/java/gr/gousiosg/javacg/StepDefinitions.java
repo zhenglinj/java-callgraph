@@ -34,6 +34,7 @@ public class StepDefinitions {
 		System.setOut(oldOut);
 
 		result = resultBuffer.toString();
+		System.out.println(result);
 	}
 
 	@Then("^the result should contain:$")

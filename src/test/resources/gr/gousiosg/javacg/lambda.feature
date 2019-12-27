@@ -12,6 +12,34 @@ Feature: Lambda
       }
       """
 
+  Scenario: Retrieve lambda in build-in method
+    Given I have the class "BuildInLambdaTest" with code:
+      """
+      import java.util.stream.IntStream;
+
+      public class BuildInLambdaTest {
+        public void test() {
+            IntStream.range(1, 10).map(i -> method1(i)).forEach(i -> method2(i));
+            method3("hello");
+        }
+
+        public int method1(int i) { return i * i; }
+        public void method2(int i) {}
+        public void method3(String s) {}
+      }
+      """
+    When I run the analyze
+    # Creation of r in methodA
+    Then the result should contain:
+      """
+      M:BuildInLambdaTest:test() (I)java.util.stream.IntStream:forEach(java.util.function.IntConsumer)
+      """
+    # Call of methodB in r
+    And the result should contain:
+      """
+      M:BuildInLambdaTest:lambda$test$0(int) (M)BuildInLambdaTest:method1(int)
+      """
+
   Scenario: Retrieve lambda in method
     Given I have the class "LambdaTest" with code:
       """
